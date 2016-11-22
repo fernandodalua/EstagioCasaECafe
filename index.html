@@ -3,30 +3,34 @@
 <head>
 <title>Buscar Vagas</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="count_vaga.js"></script>
+<script>
+$(document).ready(function() {
+	$('.search').click(function(){
+		$('#vagas').html(' ');
+		jQuery.ajax({
+			url: "http://ec2-35-164-139-210.us-west-2.compute.amazonaws.com/hirers/"+$('.id').val()+"/opportunities",
+			type: "GET",
+			dataType: "json",
+			async: false,
+			success: function (data) {
+				var count= 0;
+				$('#vagas').html();
+				$.each( data, function( key, value ) {
+					count = parseInt(count) + 1;
+					$('#vagas').html($('#vagas').html()+value["title"]+" - " + value["description"]+"<br>");
+				});
+				alert("Vagas oferecidas: "+ count);
+			}
+		});
+	});
+});
+</script>
 </head>
 
 <body>
 <input type="text" class="id">
+<button type="button" class="search">Pesquisar</button> 
 <div id="vagas">
 </div>
 </body>
 </html>
-
-$(document).ready(function() {
-  jQuery.ajax({
-    url: "http://ec2-35-164-139-210.us-west-2.compute.amazonaws.com/hirers/"+$('.id').val()+"/opportunities",
-    type: "GET",
-    dataType: "json",
-    async: false,
-  success: function (data) {
-    var count= 0;
-    $('#vagas').html();
-    $.each( data, function( key, value ) {
-      count = parseInt(count) + 1;
-      $('#vagas').html($('#vagas').html()+value["title"]+" - " + value["description"]+"<br>");
-    });
-    alert("Vagas oferecidas: "+ count);
-    }
-  });
-});
