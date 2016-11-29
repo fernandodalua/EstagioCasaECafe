@@ -2,10 +2,76 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">        
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <title>Casa e Café - 2</title>
+        <title>Casa e Café - 2</title>        
+        <script>
+        $(document).ready(function() {
+            $('.save').click(function(){
+                var valores = [{
+                    "id":144000,
+                    "title":"Vaga para Empregada Dom\u00e9stica",
+                    "description":"Casal sem filhos e sem animais dom\u00e9sticos  procura empregada \n            dom\u00e9stica para cuidar de um apartamento duplex. Limpar, cozinhar, lavar e \n            passar roupas. In\u00edcio a partir de 20 de julho",
+                    "created_at":"2016-07-01 13:06:12",
+                    "is_contact_available":true,
+                    "is_active":true,
+                    "hirer":{
+                      "id":2310,
+                      "name":"Felipe Matos Dos Santos",
+                      "account_type":"pf",
+                      "cnpj":null,
+                      "company_contact_name":null,
+                      "phone":"(21) 99870-0327",
+                      "email":"felipe_med@yahoo.com.br",
+                      "mobile_phone":"(21) 93234-8378",
+                      "is_plan_active":true
+                    },
+                    "location":{
+                      "neighborhood":"Ipanema",
+                      "address":"Prudente de Morais",
+                      "address_type":"Rua",
+                      "latitude":-22.9851707,
+                      "longitude":-43.2071601,
+                      "city_id":"6861",
+                      "city":"Rio de Janeiro",
+                      "zipcode":"22420043",
+                      "state":"RJ"
+                    },
+                    "frequency":"mensalista_2x",
+                    "is_automatic":false,
+                    "score":3,
+                    "category":{
+                      "id":1,
+                      "name":"Empregada Dom\u00e9stica"
+                    },
+                    "salary_requirements":1100,
+                    "characteristics":[
+
+                    ],
+                    "starts":"esse_mes",
+                    "amount_candidates":19,
+                    "amount_visualizations":58,
+                    "feedback":"",
+                    "salary_research":"",
+                    "relevancy":""
+                   }];
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://ec2-35-164-139-210.us-west-2.compute.amazonaws.com/opportunities",                
+                    data: JSON.stringify({ valores }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){alert(data);},
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            });
+        });
+        </script>
     </head>
     <body>
         <div class="container col-md-12">
@@ -119,6 +185,7 @@
                 </div>
             </div>
         </div>
+            <button type="button" class="save">Save</button> 
         </div>
     </body>
 </html>
